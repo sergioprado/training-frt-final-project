@@ -23,9 +23,19 @@ uint32_t timer_runtime_stats_get_counter();
 #define portGET_RUN_TIME_COUNTER_VALUE() timer_runtime_stats_get_counter()
 ```
 
-4. Add the following code to the `main()` function:
+4. Add the following code to the `.c` file where the `main()` function is:
 
 ```
+#include "elw_hal.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "vehicle.h"
+
+int main(void) {
+
+    /* keep the hardware initialization code from the SDK */
+    ...
+
     /* initialize hal */
     elw_init_hal();
 
@@ -34,4 +44,10 @@ uint32_t timer_runtime_stats_get_counter();
 
     /* start the scheduler */
     vTaskStartScheduler();
+
+    /* should never reach here! */
+    for (;;);
+
+    return 0;
+}
 ```
